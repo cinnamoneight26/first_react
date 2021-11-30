@@ -30,21 +30,30 @@ export default class SearchFormView extends View{
 
     // keyup event : 검색어를 delete로 삭제하면 버튼이 사라지지만 reset버튼 클릭 시에는 그대로 남아있음.
     handleKeyup() {
-        const {value} = this.inputElement;
+        const { value } = this.inputElement;
         this.showResetButotn(value.length > 0);
+
+        if (value.length <= 0) {
+            this.resetSclickEvent();
+        }
     }
 
     // enter 시 목록
     handleSubmit(event) {
-        // 새로고침 금지 - 기본 동작 취소
+        // 새로고침 금지 - form의 기본 동작 취소
         event.preventDefault();
-        const {value} = this.inputElement;
-        this.emit("@submit", {value});
+        const { value } = this.inputElement;
+        this.emit("@submit", { value } );
     }
+
     resetSclickEvent() {
+        // 개인 추가
         this.showResetButotn(false);
         // focus도...
         this.inputElement.focus();
+
+        // 수업 내용 - 리셋버튼 클릭 시 검색 결과 삭제
+        this.emit("@reset");
     }
 
 

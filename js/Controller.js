@@ -25,6 +25,14 @@ export default class Controller {
 
   reset() {
     console.log(tag, "reset");
+    // 리셋버튼 클릭 시 검색 결과 삭제 - 내가 구현해 본 코드
+    // this.store.searchKeyword = '';
+    // this.render();
+
+    // 수업 코드 : store class에서 searchKeyword와 searchResult를 초기화해줌
+    this.store.searchKeyword = '';
+    this.store.searchResult = [];
+    this.render();
   }
 
   render() {

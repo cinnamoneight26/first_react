@@ -23,20 +23,16 @@ class Template {
     }
 
     getList(data =[]) {
-        return `
-        <ul class="result">
+        return `<ul class="result">
             ${data.map(this._getItem).join("")}
-        </ul>
-        `;
+        </ul>`;
     }
 
-    _getItem({imageUrl, name}) {
-        return `
-        <li>
+    _getItem( {imageUrl, name }  ) {
+        return `<li>
             <img src="${imageUrl}" alt="${name}" />
             <p>${name}</p>
-        </li>
-        `;
+        </li>`;
     }
 
 }

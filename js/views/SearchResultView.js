@@ -18,16 +18,19 @@ export default class SearchResultView extends View{
 }
 
 class Template {
+    // 검색 결과 없을 때 추가
     getEmptyMessage () {
         return '<div class="empty-box">검색 결과가 없습니다.</div>';
     }
 
+    // 검색 결과 리스트 ul
     getList(data =[]) {
         return `<ul class="result">
             ${data.map(this._getItem).join("")}
         </ul>`;
     }
 
+    // 검색 결과 리스트 li
     _getItem( {imageUrl, name }  ) {
         return `<li>
             <img src="${imageUrl}" alt="${name}" />

@@ -48,12 +48,14 @@ export default class Controller {
 
   render() {
     if (this.store.searchKeyword.length > 0) {
+      // 검색 결과가 있을 때는 탭을 숨김
       this.tabView.hide();
       this.searchResultView.show(this.store.searchResult);
       return;
     }
 
-    this.tabView.show();
+    // 기본 화면일 때는 탭 보임 - 추천 검색어가 기본
+    this.tabView.show(this.store.selectedTab);
     this.searchResultView.hide();
   }
 }

@@ -1,12 +1,19 @@
 const tag = "[Controller]";
 
 export default class Controller {
-  constructor(store, {searchFormView, searchResultView, tabView }) {
+  constructor(store, {
+    searchFormView,
+    searchResultView,
+    tabView
+  }) {
     console.log(tag);
     this.store = store;
 
+    // 검색어 입력
     this.searchFormView = searchFormView;
+    // 검색 결과
     this.searchResultView = searchResultView;
+    // 최근 검색어/추천 검색어 탭
     this.tabView = tabView;
 
     this.subscribeViewEvents();
@@ -14,9 +21,10 @@ export default class Controller {
   }
 
   subscribeViewEvents() {
-    this.searchFormView.on('@submit', event => 
-      this.search(event.detail.value)
-      ).on("@reset",() => this.reset()); 
+    // 커스텀 이벤트
+    this.searchFormView
+      .on('@submit', event => this.search(event.detail.value))
+      .on("@reset", () => this.reset());
   }
 
   search(keyword) {
@@ -38,7 +46,7 @@ export default class Controller {
   }
 
   render() {
-    if  (this.store.searchKeyword.length > 0) {
+    if (this.store.searchKeyword.length > 0) {
       this.tabView.hide();
       this.searchResultView.show(this.store.searchResult);
       return;

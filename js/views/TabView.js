@@ -1,6 +1,7 @@
 import { qs } from "../helpers.js";
 import View from "./View.js";
 
+// tabType - 최근 검색어와 추천 검색어
 const TabType = {
     KEYWORD : 'KEYWORD',
     HISTORY : 'HISTORY'

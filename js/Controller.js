@@ -17,6 +17,7 @@ export default class Controller {
     this.tabView = tabView;
 
     this.subscribeViewEvents();
+    // main.js를 통해 브라우저에서 그리자마자 실행
     this.render();
   }
 

@@ -1,5 +1,7 @@
-import { qs, qsAll } from "../helpers.js";
+import { delegate, qs, qsAll } from "../helpers.js";
 import View from "./View.js";
+
+const tag = "TabView";
 
 // tabType - 최근 검색어와 추천 검색어
 export const TabType = {
@@ -16,6 +18,19 @@ export default class TabView extends View {
     constructor() {
         super(qs('#tab-view'));
         this.template = new Template();
+
+        this.bindEvents();
+    }
+
+    // 추천/최근 검색어 클릭 시 이벤트
+    bindEvents() {
+        delegate(this.element, 'click', 'li', event => this.handleClick(event));
+    }
+
+    handleClick(event) {
+        console.log(tag, event.target);
+        const value = event.target.dataset.tab;
+        this.emit("@change", { value });
     }
 
     show(selectedTab) {
@@ -29,6 +44,7 @@ export default class TabView extends View {
         super.show();
     }
 }
+
 
 class Template {
     // 여기 어렵다. 나중에 써먹어보자

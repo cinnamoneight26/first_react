@@ -26,12 +26,15 @@ export default class Controller {
     this.searchFormView
       .on('@submit', event => this.search(event.detail.value))
       .on("@reset", () => this.reset());
+
+      // 탭 체인지 이벤트. dataset을 이용
+      this.tabView.on('@change', event => this.changeTab(event.detail.value));
   }
 
   search(keyword) {
     console.log(tag, keyword);
     this.store.search(keyword);
-    this.render()
+    this.render();
   }
 
   reset() {
@@ -43,6 +46,13 @@ export default class Controller {
     // 수업 코드 : store class에서 searchKeyword와 searchResult를 초기화해줌
     this.store.searchKeyword = '';
     this.store.searchResult = [];
+    this.render();
+  }
+
+  changeTab(tab) {
+    console.log(tab);
+    // 탭을 클릭할 때 색상 변경 이벤트 : 다시 그려줌
+    this.store.selectedTab  = tab;
     this.render();
   }
 

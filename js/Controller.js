@@ -34,7 +34,12 @@ export default class Controller {
 
       // 탭 체인지 이벤트. dataset을 이용
       this.tabView.on('@change', event => this.changeTab(event.detail.value));
-  }
+  
+      // 추천 검색어 목록에서 검색어 클릭 시 이벤트
+      this.keywordListView.on("@click", event => 
+        this.search(event.detail.value)
+      );
+    }
 
   search(keyword) {
     console.log(tag, keyword);

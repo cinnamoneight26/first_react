@@ -1,10 +1,13 @@
+import { TabType } from "./views/TabView.js";
+
 const tag = "[Controller]";
 
 export default class Controller {
   constructor(store, {
     searchFormView,
     searchResultView,
-    tabView
+    tabView,
+    keywordListView
   }) {
     console.log(tag);
     this.store = store;
@@ -15,6 +18,8 @@ export default class Controller {
     this.searchResultView = searchResultView;
     // 최근 검색어/추천 검색어 탭
     this.tabView = tabView;
+    // 최근 검색어/추천 검색어 리스트
+    this.keywordListView = keywordListView;
 
     this.subscribeViewEvents();
     // main.js를 통해 브라우저에서 그리자마자 실행
@@ -60,12 +65,23 @@ export default class Controller {
     if (this.store.searchKeyword.length > 0) {
       // 검색 결과가 있을 때는 탭을 숨김
       this.tabView.hide();
+      this.keywordListView.hide();
       this.searchResultView.show(this.store.searchResult);
+
       return;
     }
 
     // 기본 화면일 때는 탭 보임 - 추천 검색어가 기본
     this.tabView.show(this.store.selectedTab);
     this.searchResultView.hide();
+
+    // 검색어 선택에 따라 분기
+    if (this.store.selectedTab == TabType.KEYWORD) {
+      this.keywordListView.show(this.store.getKeywordList());
+    } else if (this.store.selectedTab == TabType.HISTORY) {
+      this.keywordListView.hide();
+    } else {
+      throw "사용할 수 없는 탭입니다.";
+    }
   }
 }

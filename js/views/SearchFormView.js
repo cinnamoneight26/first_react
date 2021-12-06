@@ -56,5 +56,13 @@ export default class SearchFormView extends View{
         this.emit("@reset");
     }
 
+    // 추천 검색어/ 최근 검색어 클릭 시 검색어 입력 input창에 검색어가 들어가게 함
+    show(value = "") {
+        this.inputElement.value = value;
+        // 검색어와 함께 검색어 삭제 버튼도 보이도록 함
+        this.showResetButotn(this.inputElement.value.length > 0);
+
+        super.show();
+    }
 
 }

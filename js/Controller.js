@@ -67,13 +67,9 @@ export default class Controller {
   }
 
   render() {
+    // 검색 결과가 있을 때
     if (this.store.searchKeyword.length > 0) {
-      // 검색 결과가 있을 때는 탭을 숨김
-      this.tabView.hide();
-      this.keywordListView.hide();
-      this.searchResultView.show(this.store.searchResult);
-
-      return;
+      return this.renderSearchResult();
     }
 
     // 기본 화면일 때는 탭 보임 - 추천 검색어가 기본
@@ -88,5 +84,15 @@ export default class Controller {
     } else {
       throw "사용할 수 없는 탭입니다.";
     }
+  }
+
+  renderSearchResult() {
+    // 검색결과 보일 때 검색어 입력 부분에 키워드가 들어가도록 함
+    this.searchFormView.show(this.store.searchKeyword);
+    // 검색 결과가 있을 때는 탭을 숨김
+    this.tabView.hide();
+    this.keywordListView.hide();
+    // 검색 결과 보이기
+    this.searchResultView.show(this.store.searchResult);
   }
 }

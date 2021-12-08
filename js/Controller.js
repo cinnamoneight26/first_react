@@ -7,7 +7,8 @@ export default class Controller {
     searchFormView,
     searchResultView,
     tabView,
-    keywordListView
+    keywordListView,
+    historyListView
   }) {
     console.log(tag);
     this.store = store;
@@ -18,8 +19,10 @@ export default class Controller {
     this.searchResultView = searchResultView;
     // 최근 검색어/추천 검색어 탭
     this.tabView = tabView;
-    // 최근 검색어/추천 검색어 리스트
+    // 추천 검색어 리스트
     this.keywordListView = keywordListView;
+    // 최근 검색어 리스트
+    this.historyListView = historyListView;
 
     this.subscribeViewEvents();
     // main.js를 통해 브라우저에서 그리자마자 실행
@@ -37,6 +40,10 @@ export default class Controller {
   
       // 추천 검색어 목록에서 검색어 클릭 시 이벤트
       this.keywordListView.on("@click", event => 
+        this.search(event.detail.value)
+      );
+      // 최근 검색어 목록에서 검색어 클릭 시 이벤트
+      this.historyListView.on("@click", event => 
         this.search(event.detail.value)
       );
     }
@@ -79,8 +86,10 @@ export default class Controller {
     // 검색어 선택에 따라 분기
     if (this.store.selectedTab == TabType.KEYWORD) {
       this.keywordListView.show(this.store.getKeywordList());
+      this.historyListView.hide();
     } else if (this.store.selectedTab == TabType.HISTORY) {
       this.keywordListView.hide();
+      this.historyListView.show(this.store.getHistoryList());
     } else {
       throw "사용할 수 없는 탭입니다.";
     }
@@ -92,6 +101,8 @@ export default class Controller {
     // 검색 결과가 있을 때는 탭을 숨김
     this.tabView.hide();
     this.keywordListView.hide();
+    this.historyListView.hide();
+
     // 검색 결과 보이기
     this.searchResultView.show(this.store.searchResult);
   }

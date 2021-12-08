@@ -5,6 +5,7 @@ import SearchFormView from "./views/searchFormView.js";
 import SearchResultView from "./views/SearchResultView.js";
 import TabView from "./views/TabView.js";
 import KeywodListView from "./views/KeywordListView.js";
+import HistoryListView from "./views/HistoryListView.js";
 
 const tag = '[main]';
 document.addEventListener("DOMContentLoaded", main);
@@ -17,7 +18,8 @@ function main() {
     searchFormView : new SearchFormView(),
     searchResultView : new SearchResultView(),
     tabView : new TabView(),
-    keywordListView : new KeywodListView()
+    keywordListView : new KeywodListView(),
+    historyListView : new HistoryListView()
   };
 
   new Controller(store, views);

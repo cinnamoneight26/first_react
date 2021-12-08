@@ -2,11 +2,17 @@ import View from "./View.js";
 import { delegate, qs } from "../helpers.js";
 
 const tag = "[KeywordListView]";
+
 export default class KeywodListView extends View {
-    constructor(){
-        super(qs('#keyword-list-view'));
-    
-        this.template = new Template();
+    constructor(element = qs('#keyword-list-view'), template = new Template()){
+        // 기존의 추천 검색어 구현 부분. 최근 검색어 구현을 위해 외부에서 받는 형태로 변경
+        // super(qs('#keyword-list-view'));
+        // this.template = new Template();
+
+        // 외부에서 받는 형태로 변경됨
+        super(element);
+        this.template = template;
+        
         this.bindEvents();
     }
 

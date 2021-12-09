@@ -1,4 +1,6 @@
-import { TabType } from './views/TabView.js';
+import {
+  TabType
+} from './views/TabView.js';
 
 const tag = "[store]";
 
@@ -9,7 +11,7 @@ export default class Store {
 
     this.storage = storage;
 
-    this.searchKeyword ="";
+    this.searchKeyword = "";
     this.searchResult = [];
     this.selectedTab = TabType.KEYWORD;
   }
@@ -17,8 +19,8 @@ export default class Store {
   // model
   search(keyword) {
     this.searchKeyword = keyword;
-    this.searchResult = this.storage.productData.filter(product => 
-      product.name.includes(keyword) 
+    this.searchResult = this.storage.productData.filter(product =>
+      product.name.includes(keyword)
     );
   }
 
@@ -32,5 +34,11 @@ export default class Store {
 
   _sortHistory(history1, history2) {
     return history2.date > history1.date;
+  }
+  
+  removeHistory(keyword) {
+    this.storage.historyData = this.storage.historyData.filter(
+      history => history.keyword !== keyword
+    );
   }
 }

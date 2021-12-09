@@ -43,9 +43,10 @@ export default class Controller {
         this.search(event.detail.value)
       );
       // 최근 검색어 목록에서 검색어 클릭 시 이벤트
+      // 이벤트 체이닝으로 @remove 이벤트 추가
       this.historyListView.on("@click", event => 
         this.search(event.detail.value)
-      );
+      ).on("@remove", (event) => this.removeHistory(event.detail.value));
     }
 
   search(keyword) {
@@ -70,6 +71,11 @@ export default class Controller {
     console.log(tab);
     // 탭을 클릭할 때 색상 변경 이벤트 : 다시 그려줌
     this.store.selectedTab  = tab;
+    this.render();
+  }
+
+  removeHistory(keyword) {
+    this.store.removeHistory(keyword);
     this.render();
   }
 

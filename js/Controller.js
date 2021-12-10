@@ -42,6 +42,7 @@ export default class Controller {
       this.keywordListView.on("@click", event => 
         this.search(event.detail.value)
       );
+      
       // 최근 검색어 목록에서 검색어 클릭 시 이벤트
       // 이벤트 체이닝으로 @remove 이벤트 추가
       this.historyListView.on("@click", event => 

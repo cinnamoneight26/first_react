@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let data = "hello world";
+        // document.body.innerHTML = `<p>${data}</p>`;
+        // data = "안녕하세요!";
+        // document.body.innerHTML = `<p>${data}</p>`;
+
+        const state = {
+            _data : "Hello world",
+        }
+
+        const render = () => document.body.innerHTML = `<p>${state.data}</p>`;
+
+        Object.defineProperty(state, "data", {
+            get() {
+                console.log('get')
+                return state._data
+            },
+            set(value) {
+                console.log('set')
+                state._data = value;
+                render();
+            }
+        });
+
+        render();
+
+        state.data = "안녕"
+        state.data = "Hello world"
+    </script>
+</body>
+</html>

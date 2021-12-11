@@ -19,6 +19,10 @@
 
         const render = () => document.body.innerHTML = `<p>${state.data}</p>`;
 
+        /* 새로운 속성을 직접 정의하거니 이미 존재하는 속성을 수정한 후 해당 객체를 반환
+        Object.defineProperty(obj, prop, descriptor)
+        https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+        **/
         Object.defineProperty(state, "data", {
             get() {
                 console.log('get')

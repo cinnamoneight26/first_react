@@ -1,5 +1,5 @@
 import { on, qs } from "../helpers.js";
-import View from "./view.js";
+import View from "./view.js.js";
 
 const tag = '[SearchFormView]'
 export default class SearchFormView extends View{

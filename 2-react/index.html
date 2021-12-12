@@ -14,8 +14,19 @@
     </script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
+        // createElement : 엘리먼트는 리액트 앱을 구성하는 최소 단위
         const element = React.createElement("h1", null, "Hello World");
+        // 일반 오브젝트 객체로 보임 : props, type... 리액트 애플리케이션과 DOM사이에 있는 가상돔.
+        console.log('react', element);
         ReactDOM.render(element, document.querySelector("#app"));
+        
+        // document.body.innerHTML = '<p>Hello World</p>';
+
+        const p = document.createElement('p');
+        p.textContent = 'Hello world';
+        // 실제 dom element.dom객체임
+        console.log('dom', p);
+        // document.body.appendChild(p);
     </script>
 </body>
 </html>

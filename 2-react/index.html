@@ -13,19 +13,28 @@
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js">
     </script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- 리액트 자체는 템플릿 언어를 지원하지 않음 -->
+    <!-- React.createElement : 세번째 인자에 자식 엘리먼트를 전달 / 가독성이 떨어지기 때문에 대체로 JSX를 사용함 -->
+    <!-- const h1 = React.createElement("h1", null, "Hello World")
+    const header = React.createElement("header", null, h1) -->
+
+    <!-- babel - 최신 자바스크립트 문법을 브라우저에서 사용하기 위한 도구. 대부분의 브라우저를 지원할 수 있는 코드로 변환 -->
     <script type="text/babel">
         // createElement : 엘리먼트는 리액트 앱을 구성하는 최소 단위
         const element = React.createElement("h1", null, "Hello World");
         // 일반 오브젝트 객체로 보임 : props, type... 리액트 애플리케이션과 DOM사이에 있는 가상돔.
         console.log('react', element);
+        // ReactDOM은 element를 받아서 가상돔을 만들기 시작한다.
+        // 랜더링은 두번째 인자인 #app
         ReactDOM.render(element, document.querySelector("#app"));
         
         // document.body.innerHTML = '<p>Hello World</p>';
 
-        const p = document.createElement('p');
-        p.textContent = 'Hello world';
+        // const p = document.createElement('p');
+        // p.textContent = 'Hello world';
         // 실제 dom element.dom객체임
-        console.log('dom', p);
+        // console.log('dom', p);
         // document.body.appendChild(p);
     </script>
 </body>

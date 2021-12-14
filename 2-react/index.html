@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture React</title>
+    <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
     <div id="app"></div>
@@ -22,7 +23,7 @@
     const header = React.createElement("header", null, h1) -->
 
     <!-- babel - 최신 자바스크립트 문법을 브라우저에서 사용하기 위한 도구. 대부분의 브라우저를 지원할 수 있는 코드로 변환 -->
-    <script type="text/babel">
+    <script type="text/babel" src="js/main.js" data-type="module" data-presets="react">
         // createElement : 엘리먼트는 리액트 앱을 구성하는 최소 단위
         // const element = React.createElement(    "h1", null, "Hello World");
         // 일반 오브젝트 객체로 보임 : props, type... 리액트 애플리케이션과 DOM사이에 있는 가상돔.
@@ -40,8 +41,10 @@
         // document.body.appendChild(p);
 
         // jsx - UI 코드의 가독성을 높여주기 위해 사용.
-        const element = <h1>Hello World</h1>;
-         ReactDOM.render(element, document.querySelector('#app'));
+        // const element = <h1>Hello World</h1>;
+        // ReactDOM.render(element, document.querySelector('#app'));
+    
+        
     </script>
 </body>
 </html>

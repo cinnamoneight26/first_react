@@ -1,4 +1,14 @@
 class App extends React.Component {
+constructor() {
+    super();
+
+    this.state = {
+        searchKeyword: "hello world",
+    };
+}
+    // 2021.12.18
+    // input에 대한 value값은 리엑트에서 관리하고 있지만 onchange 이벤트는
+    // 여전히 브라우저에서 관리하고 있다. 에러가 발생하고 있으며 삭제도 입력도 안 되고 있는 상태.
     render() {
         return (
             <>
@@ -7,7 +17,11 @@ class App extends React.Component {
                 </header>
                 <div className="container">
                     <form>
-                        <input type="text" placeholder="검색어를 입력하세요." autoFocus />
+                        <input 
+                        type="text" 
+                        placeholder="검색어를 입력하세요." 
+                        autoFocus 
+                        value={this.state.searchKeyword}/>
                         <button type="reset" className="btn-reset"></button>
                     </form>
                 </div>

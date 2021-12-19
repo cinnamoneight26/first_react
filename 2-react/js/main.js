@@ -3,12 +3,27 @@ constructor() {
     super();
 
     this.state = {
-        searchKeyword: "hello world",
+        searchKeyword: "",
     };
 }
     // 2021.12.18
     // input에 대한 value값은 리엑트에서 관리하고 있지만 onchange 이벤트는
     // 여전히 브라우저에서 관리하고 있다. 에러가 발생하고 있으며 삭제도 입력도 안 되고 있는 상태.
+    
+    handleChangeInput(event) {
+        // this.state.searchKeyword = event.target.value;
+        // 리액트 컴포넌트는 스테이트를 변경할 때 주의해야하는 게 있다.
+        // 필요할 때만 다시 그리기 때문에 스테이트 변경이 되었다고 다시 그리기 않음.
+        // 강제로 컴포넌트를 돌게하려면 아래 메서드를 사용해야 한다.
+        // this.forceUpdate();
+        // 위의 방법은 리액트를 사용하는 것에 적절하지 않다.
+        // 스테이트의 변화를 스스로 감지해서 콘트롤 할 수 있도록 하는 것이 좋음
+
+        this.setState({
+            searchKeyword : event.target.value
+        });
+    }
+
     render() {
         return (
             <>
@@ -21,7 +36,9 @@ constructor() {
                         type="text" 
                         placeholder="검색어를 입력하세요." 
                         autoFocus 
-                        value={this.state.searchKeyword}/>
+                        value={this.state.searchKeyword}
+                        onChange={event => this.handleChangeInput(event)}
+                        />
                         <button type="reset" className="btn-reset"></button>
                     </form>
                 </div>

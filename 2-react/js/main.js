@@ -24,6 +24,12 @@ constructor() {
         });
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log('handleSubmit', this.state.searchKeyword);
+
+    }
+
     render() {
         // 리엑트에서 조건부 렌더링 하는 방식은 세 가지
         // 1. 엘리먼트 변수를 사용하는 방식
@@ -44,7 +50,8 @@ constructor() {
                     <h2 className="container">검색</h2>
                 </header>
                 <div className="container">
-                    <form>
+                    {/* onSubmit - input에서 엔터치면 이벤트 발생 */}
+                    <form onSubmit={event => this.handleSubmit(event)}>
                         <input 
                         type="text" 
                         placeholder="검색어를 입력하세요." 

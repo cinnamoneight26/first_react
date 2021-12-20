@@ -25,6 +25,12 @@ constructor() {
     }
 
     render() {
+        let resetButton = null;
+
+        if (this.state.searchKeyword.length > 0) {
+            resetButton = <button type="reset" className="btn-reset"></button>
+        }
+
         return (
             <>
                 <header>
@@ -39,7 +45,8 @@ constructor() {
                         value={this.state.searchKeyword}
                         onChange={event => this.handleChangeInput(event)}
                         />
-                        <button type="reset" className="btn-reset"></button>
+                        {resetButton}
+                        {/* <button type="reset" className="btn-reset"></button> */}
                     </form>
                 </div>
             </>

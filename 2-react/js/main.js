@@ -25,11 +25,18 @@ constructor() {
     }
 
     render() {
-        let resetButton = null;
+        // 리엑트에서 조건부 렌더링 하는 방식은 세 가지
+        // 1. 엘리먼트 변수를 사용하는 방식
+        // 2. 삼항 연산자를 사용하는 방식
+        // 3. && 연산자를 사용하는 방식
 
-        if (this.state.searchKeyword.length > 0) {
-            resetButton = <button type="reset" className="btn-reset"></button>
-        }
+        // 1. 엘리먼트를 사용하는 방식
+        // let resetButton = null;
+
+        // if (this.state.searchKeyword.length > 0) {
+        //     resetButton = <button type="reset" className="btn-reset"></button>
+        // }
+
 
         return (
             <>
@@ -45,7 +52,18 @@ constructor() {
                         value={this.state.searchKeyword}
                         onChange={event => this.handleChangeInput(event)}
                         />
-                        {resetButton}
+                        {/* 1. 엘리먼트를 이용하여 표현하는 방식 */}
+                        {/* {resetButton} */}
+
+                        {/* 2. 삼항 연산자를 이용하는 방식 */}
+                        {/* {this.state.searchKeyword.length > 0 ? 
+                            <button type="reset" className="btn-reset"></button> :
+                            null} */}
+
+                        {/* 3. &&연산자를 이용하는 방식 : 첫번째 조건이 참이 되어야 두번째 조건을 실행 */}
+                        {this.state.searchKeyword.length > 0 &&
+                            <button type="reset" className="btn-reset"></button> 
+                        }
                         {/* <button type="reset" className="btn-reset"></button> */}
                     </form>
                 </div>

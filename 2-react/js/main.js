@@ -4,6 +4,7 @@ constructor() {
 
     this.state = {
         searchKeyword: "",
+        searchResult: [],
     };
 }
     // 2021.12.18
@@ -43,7 +44,7 @@ constructor() {
         this.setState(() => {
             return { searchKeyword: "" }
         }, () => {
-            
+
             console.log('reset', this.state.searchKeyword);
         });
     }
@@ -95,6 +96,14 @@ constructor() {
                         }
                         {/* <button type="reset" className="btn-reset"></button> */}
                     </form>
+                    {/* 2021.12.23 검색 결과 표시 - 검색 결과 여부에 따라 구현해야하기 때문에 조건부 랜더링으로 구현해야 함 */}
+                    <div className="content">
+                        {this.state.searchResult.length > 0 ? (
+                            <div>검색 결과 목록 표시하기</div>
+                        ) : (
+                            <div className="empty-box">검색 결과가 없습니다.</div>
+                        )}
+                    </div>
                 </div>
             </>
         );

@@ -19,15 +19,33 @@ constructor() {
         // 위의 방법은 리액트를 사용하는 것에 적절하지 않다.
         // 스테이트의 변화를 스스로 감지해서 콘트롤 할 수 있도록 하는 것이 좋음
 
-        this.setState({
-            searchKeyword : event.target.value
-        });
+        const searchKeyword = event.target.value;
+
+        // 검색어가 없을 때 처리 : 2021.12.22
+        if(searchKeyword.length <= 0) {
+            return this.handleReset();
+        }
+
+        this.setState({searchKeyword});
     }
 
     handleSubmit(event) {
         event.preventDefault();
         console.log('handleSubmit', this.state.searchKeyword);
+    }
 
+    handleReset() {
+        // 검색 결과 삭제
+        // 아래 setstate만 하면 this.state.searchKeyword가 아직 남아있음
+        // !!! setState는 항상 비동기로 동작한다.
+        // this.setState({ searchKeyword: ""});
+        
+        this.setState(() => {
+            return { searchKeyword: "" }
+        }, () => {
+            
+            console.log('reset', this.state.searchKeyword);
+        });
     }
 
     render() {
@@ -51,7 +69,11 @@ constructor() {
                 </header>
                 <div className="container">
                     {/* onSubmit - input에서 엔터치면 이벤트 발생 */}
-                    <form onSubmit={event => this.handleSubmit(event)}>
+                    <form 
+                        onSubmit={event => this.handleSubmit(event)}
+                        // 내가 해보기
+                        onReset={() => this.handleReset()}
+                    >
                         <input 
                         type="text" 
                         placeholder="검색어를 입력하세요." 

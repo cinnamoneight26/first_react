@@ -1,3 +1,5 @@
+import store from './Store.js';
+
 class App extends React.Component {
 constructor() {
     super();
@@ -32,7 +34,14 @@ constructor() {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log('handleSubmit', this.state.searchKeyword);
+        // console.log('handleSubmit', this.state.searchKeyword);
+
+        this.search(this.state.searchKeyword);
+    }
+
+    search(searchKeyword) {
+        const searchResult = store.search(searchKeyword)
+        this.setState( {searchResult });
     }
 
     handleReset() {
@@ -99,7 +108,16 @@ constructor() {
                     {/* 2021.12.23 검색 결과 표시 - 검색 결과 여부에 따라 구현해야하기 때문에 조건부 랜더링으로 구현해야 함 */}
                     <div className="content">
                         {this.state.searchResult.length > 0 ? (
-                            <div>검색 결과 목록 표시하기</div>
+                            <ul>
+                                {this.state.searchResult.map(item => {
+                                    return (
+                                        <li>
+                                            <img src={item.imageUrl} alt={item.name}></img>
+                                            <p>{item.name}</p>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
                         ) : (
                             <div className="empty-box">검색 결과가 없습니다.</div>
                         )}

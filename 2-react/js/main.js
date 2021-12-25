@@ -111,7 +111,17 @@ constructor() {
                             <ul className="result">
                                 {this.state.searchResult.map(item => {
                                     return (
-                                        <li>
+                                        /* key는 엘리먼트에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야 함
+                                            searchResult 배열을 이용해 li 엘리먼트를 여러 개 만들았는데 이때 li 엘리먼트에 key속성을 추가해야 함
+                                            리엑트 엘리먼트를 가상 돔으로 만들고 이전 가상돔과 차이가 있는 부분만 계산해 실제 돔에 반영하면서 렌더링 성능을 올림
+                                            트리 비교이기 때문에 빅오 표기법 O(n^3)만큼의 복잡도를 가지는데 이는 화면을 그릴 때마다 비효율적이고 화면 렌더링을 느리게 만드는 경우가 생김
+                                            그래서 두 가지 가종하에 재조정 알고리즘을 사용한다.
+                                            1. 엘리먼트 타입이 다를 경우
+                                            2. key값이 다를 경우
+                                            각각 화면을 조정하는데 O(n)으로 계산 복잡도가 확연하게 줄어든다고 함
+                                        */
+                                    
+                                        <li key={item.id}>
                                             <img src={item.imageUrl} alt={item.name}></img>
                                             <p>{item.name}</p>
                                         </li>

@@ -1,4 +1,4 @@
-import store from './Store.js';
+import store from './js/Store.js';
 
 class App extends React.Component {
 constructor() {
@@ -108,7 +108,7 @@ constructor() {
                     {/* 2021.12.23 검색 결과 표시 - 검색 결과 여부에 따라 구현해야하기 때문에 조건부 랜더링으로 구현해야 함 */}
                     <div className="content">
                         {this.state.searchResult.length > 0 ? (
-                            <ul>
+                            <ul className="result">
                                 {this.state.searchResult.map(item => {
                                     return (
                                         <li>

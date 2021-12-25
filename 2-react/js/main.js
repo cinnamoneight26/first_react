@@ -66,6 +66,59 @@ constructor() {
     }
 
     render() {
+        const searchForm = (
+            <form onSubmit={event => this.handleSubmit(event)}
+                onReset={() => this.handleReset()}
+            >
+            <input 
+                type="text" 
+                placeholder="검색어를 입력하세요." 
+                autoFocus 
+                value={this.state.searchKeyword}
+                onChange={event => this.handleChangeInput(event)}
+            />
+            {/* 1. 엘리먼트를 이용하여 표현하는 방식 */}
+            {/* {resetButton} */}
+
+            {/* 2. 삼항 연산자를 이용하는 방식 */}
+            {/* {this.state.searchKeyword.length > 0 ? 
+                <button type="reset" className="btn-reset"></button> :
+                null} */}
+
+            {/* 3. &&연산자를 이용하는 방식 : 첫번째 조건이 참이 되어야 두번째 조건을 실행 */}
+            {this.state.searchKeyword.length > 0 &&
+                <button type="reset" className="btn-reset"></button> 
+            }
+            {/* <button type="reset" className="btn-reset"></button> */}
+        </form>
+        );
+
+        const searchResult = 
+            this.state.searchResult.length > 0 ? (
+                <ul className="result">
+                    {this.state.searchResult.map(item => {
+                        return (
+                            /* key는 엘리먼트에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야 함
+                                searchResult 배열을 이용해 li 엘리먼트를 여러 개 만들았는데 이때 li 엘리먼트에 key속성을 추가해야 함
+                                리엑트 엘리먼트를 가상 돔으로 만들고 이전 가상돔과 차이가 있는 부분만 계산해 실제 돔에 반영하면서 렌더링 성능을 올림
+                                트리 비교이기 때문에 빅오 표기법 O(n^3)만큼의 복잡도를 가지는데 이는 화면을 그릴 때마다 비효율적이고 화면 렌더링을 느리게 만드는 경우가 생김
+                                그래서 두 가지 가종하에 재조정 알고리즘을 사용한다.
+                                1. 엘리먼트 타입이 다를 경우
+                                2. key값이 다를 경우
+                                각각 화면을 조정하는데 O(n)으로 계산 복잡도가 확연하게 줄어든다고 함
+                            */
+                        
+                            <li key={item.id}>
+                                <img src={item.imageUrl} alt={item.name}></img>
+                                <p>{item.name}</p>
+                            </li>
+                        )
+                    })}
+                </ul>
+            ) : (
+                <div className="empty-box">검색 결과가 없습니다.</div>
+            );
+
         // 리엑트에서 조건부 렌더링 하는 방식은 세 가지
         // 1. 엘리먼트 변수를 사용하는 방식
         // 2. 삼항 연산자를 사용하는 방식
@@ -85,61 +138,10 @@ constructor() {
                     <h2 className="container">검색</h2>
                 </header>
                 <div className="container">
-                    {/* onSubmit - input에서 엔터치면 이벤트 발생 */}
-                    <form 
-                        onSubmit={event => this.handleSubmit(event)}
-                        // 내가 해보기
-                        onReset={() => this.handleReset()}
-                    >
-                        <input 
-                        type="text" 
-                        placeholder="검색어를 입력하세요." 
-                        autoFocus 
-                        value={this.state.searchKeyword}
-                        onChange={event => this.handleChangeInput(event)}
-                        />
-                        {/* 1. 엘리먼트를 이용하여 표현하는 방식 */}
-                        {/* {resetButton} */}
-
-                        {/* 2. 삼항 연산자를 이용하는 방식 */}
-                        {/* {this.state.searchKeyword.length > 0 ? 
-                            <button type="reset" className="btn-reset"></button> :
-                            null} */}
-
-                        {/* 3. &&연산자를 이용하는 방식 : 첫번째 조건이 참이 되어야 두번째 조건을 실행 */}
-                        {this.state.searchKeyword.length > 0 &&
-                            <button type="reset" className="btn-reset"></button> 
-                        }
-                        {/* <button type="reset" className="btn-reset"></button> */}
-                    </form>
+                    {searchForm}
                     {/* 2021.12.23 검색 결과 표시 - 검색 결과 여부에 따라 구현해야하기 때문에 조건부 랜더링으로 구현해야 함 */}
                     <div className="content">
-                        {this.state.submitted && (
-                            (this.state.searchResult.length > 0 ? (
-                                <ul className="result">
-                                    {this.state.searchResult.map(item => {
-                                        return (
-                                            /* key는 엘리먼트에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야 함
-                                                searchResult 배열을 이용해 li 엘리먼트를 여러 개 만들았는데 이때 li 엘리먼트에 key속성을 추가해야 함
-                                                리엑트 엘리먼트를 가상 돔으로 만들고 이전 가상돔과 차이가 있는 부분만 계산해 실제 돔에 반영하면서 렌더링 성능을 올림
-                                                트리 비교이기 때문에 빅오 표기법 O(n^3)만큼의 복잡도를 가지는데 이는 화면을 그릴 때마다 비효율적이고 화면 렌더링을 느리게 만드는 경우가 생김
-                                                그래서 두 가지 가종하에 재조정 알고리즘을 사용한다.
-                                                1. 엘리먼트 타입이 다를 경우
-                                                2. key값이 다를 경우
-                                                각각 화면을 조정하는데 O(n)으로 계산 복잡도가 확연하게 줄어든다고 함
-                                            */
-                                        
-                                            <li key={item.id}>
-                                                <img src={item.imageUrl} alt={item.name}></img>
-                                                <p>{item.name}</p>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            ) : (
-                                <div className="empty-box">검색 결과가 없습니다.</div>
-                            ))
-                        )}
+                        {this.state.submitted && searchResult } 
                     </div>
                 </div>
             </>

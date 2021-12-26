@@ -33,6 +33,10 @@ constructor() {
             return this.handleReset();
         }
 
+        if (searchKeyword.length <= 0 && this.state.submitted) {
+            return this.handleReset();
+        }
+
         this.setState({searchKeyword});
     }
 
@@ -58,7 +62,8 @@ constructor() {
         // this.setState({ searchKeyword: ""});
         
         this.setState(() => {
-            return { searchKeyword: "" }
+            return { searchKeyword: "", 
+                    submitted : false}
         }, () => {
 
             console.log('reset', this.state.searchKeyword);

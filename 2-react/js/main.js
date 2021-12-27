@@ -1,5 +1,15 @@
 import store from './js/Store.js';
 
+const TabType = {
+    KEYWORD : 'KEYWORD',
+    HISTORY : 'HISTORY'
+};
+
+const TabLable = {
+    [TabType.KEYWORD] : '추천 검색어',
+    [TabType.HISTORY] : '최근 검색어'
+};
+
 class App extends React.Component {
 constructor() {
     super();
@@ -123,6 +133,19 @@ constructor() {
             ) : (
                 <div className="empty-box">검색 결과가 없습니다.</div>
             );
+            
+            // 탭 추가 2021.12.28
+            const tabs = (
+                <ul className="tabs">
+                    {Object.values(TabType).map(tabType => {
+                        return (
+                            <li key={tabType}>
+                                {TabLable[tabType]}
+                            </li>
+                        )
+                    })}
+                </ul>
+            )
 
         // 리엑트에서 조건부 렌더링 하는 방식은 세 가지
         // 1. 엘리먼트 변수를 사용하는 방식
@@ -146,7 +169,10 @@ constructor() {
                     {searchForm}
                     {/* 2021.12.23 검색 결과 표시 - 검색 결과 여부에 따라 구현해야하기 때문에 조건부 랜더링으로 구현해야 함 */}
                     <div className="content">
-                        {this.state.submitted && searchResult } 
+                        {/* {this.state.submitted && searchResult }  */}
+                        {/* 3항 연산자로 변경 - 2021.12.28 */}
+                        {/* 검색 결과가 있으면 검색 결과를 보여주고 없으면 탭을 보여줌 */}
+                        {this.state.submitted ? searchResult : tabs}
                     </div>
                 </div>
             </>

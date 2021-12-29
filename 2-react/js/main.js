@@ -20,7 +20,9 @@ constructor() {
         // 검색결과 길이 확인
         searchResult: [],
         // 검색을 했는지 확인
-        submitted : false
+        submitted : false,
+        // 탭 선택
+        selectedTab: TabType.KEYWORD,
     };
 }
     // 2021.12.18
@@ -136,15 +138,22 @@ constructor() {
             
             // 탭 추가 2021.12.28
             const tabs = (
-                <ul className="tabs">
-                    {Object.values(TabType).map(tabType => {
-                        return (
-                            <li key={tabType}>
-                                {TabLable[tabType]}
-                            </li>
-                        )
-                    })}
-                </ul>
+                <>
+                    <ul className="tabs">
+                        {Object.values(TabType).map(tabType => {
+                            return (
+                                <li className={this.state.selectedTab === tabType ? 'active' : ''} 
+                                    key={tabType}
+                                    onClick={()=>this.setState({ selectedTab: tabType })}
+                                >
+                                    {TabLable[tabType]}
+                                </li>
+                            )
+                        })}
+                    </ul>
+                    {this.state.selectedTab === TabType.KEYWORD && <>추천 검색어</>}
+                    {this.state.selectedTab === TabType.HISTORY && <>최근 검색어</>}
+                </>
             )
 
         // 리엑트에서 조건부 렌더링 하는 방식은 세 가지

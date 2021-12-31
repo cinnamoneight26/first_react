@@ -23,8 +23,16 @@ constructor() {
         submitted : false,
         // 탭 선택
         selectedTab: TabType.KEYWORD,
+        // 검색어 목록
+        keywordList : [],
     };
 }
+
+componentDidMount() {
+    const keywordList =  store.getKeywordList();
+    this.setState( {keywordList });
+}
+
     // 2021.12.18
     // input에 대한 value값은 리엑트에서 관리하고 있지만 onchange 이벤트는
     // 여전히 브라우저에서 관리하고 있다. 에러가 발생하고 있으며 삭제도 입력도 안 되고 있는 상태.
@@ -136,6 +144,18 @@ constructor() {
                 <div className="empty-box">검색 결과가 없습니다.</div>
             );
             
+            const keywordList = (
+                <ul className="list">
+                    {this.state.keywordList.map((item, index) => {
+                        return (
+                            <li key={item.id}>
+                                <span className="number">{index + 1}</span>
+                                <span>{item.keyword}</span>
+                            </li>
+                        )
+                    })}
+                </ul>
+            )
             // 탭 추가 2021.12.28
             const tabs = (
                 <>
@@ -151,7 +171,7 @@ constructor() {
                             )
                         })}
                     </ul>
-                    {this.state.selectedTab === TabType.KEYWORD && <>추천 검색어</>}
+                    {this.state.selectedTab === TabType.KEYWORD && keywordList}
                     {this.state.selectedTab === TabType.HISTORY && <>최근 검색어</>}
                 </>
             )

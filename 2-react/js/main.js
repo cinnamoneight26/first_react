@@ -70,6 +70,7 @@ componentDidMount() {
     search(searchKeyword) {
         const searchResult = store.search(searchKeyword)
         this.setState( { 
+            searchKeyword,
             searchResult,
             submitted : true
         });
@@ -148,7 +149,7 @@ componentDidMount() {
                 <ul className="list">
                     {this.state.keywordList.map((item, index) => {
                         return (
-                            <li key={item.id}>
+                            <li key={item.id} onClick={() => this.search(item.keyword)}>
                                 <span className="number">{index + 1}</span>
                                 <span>{item.keyword}</span>
                             </li>

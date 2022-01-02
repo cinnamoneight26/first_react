@@ -1,4 +1,4 @@
-import { formatRelativeDate } from './helpers.js';
+import { formatRelativeDate } from './js/helpers.js';
 import store from './js/Store.js';
 
 const TabType = {
@@ -197,7 +197,7 @@ componentDidMount() {
                         })}
                     </ul>
                     {this.state.selectedTab === TabType.KEYWORD && keywordList}
-                    {this.state.selectedTab === TabType.HISTORY && <>최근 검색어</>}
+                    {this.state.selectedTab === TabType.HISTORY && historyList }
                 </>
             )
 

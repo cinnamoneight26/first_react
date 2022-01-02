@@ -99,6 +99,16 @@ componentDidMount() {
         });
     }
 
+    // 2022.01.03 
+    handleClickRemoveHistory(event, keyword) {
+        // li에도 이벤트 onClick이벤트가 존재함. 이벤트 버블링으로 인해 클릭 이벤트에 문제가 생김
+        event.stopPropatgation();
+        
+        store.removeHistory(keyword);
+        const historyList = store.getHidtoryList();
+        this.setState({ historyList })
+    }
+
     render() {
         const searchForm = (
             <form onSubmit={event => this.handleSubmit(event)}
@@ -174,7 +184,7 @@ componentDidMount() {
                             <li key={id} onClick={() => this.search(keyword)}>
                                 <span>{keyword}</span>
                                 <span className="date">{formatRelativeDate(date)}</span>
-                                <button className="btn-remove"></button>
+                                <button className="btn-remove" onClick={event => this.handleClickRemoveHistory(event), keyword}></button>
                             </li>
                         )
                     })}

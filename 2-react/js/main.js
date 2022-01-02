@@ -1,3 +1,4 @@
+import { formatRelativeDate } from './helpers.js';
 import store from './js/Store.js';
 
 const TabType = {
@@ -23,14 +24,21 @@ constructor() {
         submitted : false,
         // 탭 선택
         selectedTab: TabType.KEYWORD,
-        // 검색어 목록
+        // 추천 검색어 목록
         keywordList : [],
+        // 최근 검색어 목록
+        historyList : [],
     };
 }
 
 componentDidMount() {
     const keywordList =  store.getKeywordList();
-    this.setState( {keywordList });
+    const historyList =  store.getHidtoryList();
+
+    this.setState( {
+        keywordList, 
+        historyList 
+    });
 }
 
     // 2021.12.18
@@ -156,7 +164,23 @@ componentDidMount() {
                         )
                     })}
                 </ul>
+            );
+
+            // 2022.01.02
+            const historyList = (
+                <ul className="list">
+                    {this.state.historyList.map(({id, keyword, date})=> {
+                        return (
+                            <li key={id}>
+                                <span>{keyword}</span>
+                                <span className="date">{formatRelativeDate(date)}</span>
+                                <button className="btn-remove"></button>
+                            </li>
+                        )
+                    })}
+                </ul>
             )
+
             // 탭 추가 2021.12.28
             const tabs = (
                 <>

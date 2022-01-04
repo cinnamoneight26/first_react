@@ -77,7 +77,7 @@ componentDidMount() {
 
     search(searchKeyword) {
         const searchResult = store.search(searchKeyword);
-        const historyList = store.getHidtoryList();
+        const historyList = store.getHistoryList();
 
         this.setState( { 
             searchKeyword,
@@ -188,7 +188,7 @@ componentDidMount() {
                             <li key={id} onClick={() => this.search(keyword)}>
                                 <span>{keyword}</span>
                                 <span className="date">{formatRelativeDate(date)}</span>
-                                <button className="btn-remove" onClick={event => this.handleClickRemoveHistory(event), keyword}></button>
+                                <button className="btn-remove" onClick={event => this.handleClickRemoveHistory(event, keyword)}></button>
                             </li>
                         )
                     })}

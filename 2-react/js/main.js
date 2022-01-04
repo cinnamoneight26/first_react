@@ -33,7 +33,7 @@ constructor() {
 
 componentDidMount() {
     const keywordList =  store.getKeywordList();
-    const historyList =  store.getHidtoryList();
+    const historyList =  store.getHistoryList();
 
     this.setState( {
         keywordList, 
@@ -76,10 +76,13 @@ componentDidMount() {
     }
 
     search(searchKeyword) {
-        const searchResult = store.search(searchKeyword)
+        const searchResult = store.search(searchKeyword);
+        const historyList = store.getHidtoryList();
+
         this.setState( { 
             searchKeyword,
             searchResult,
+            historyList,
             submitted : true
         });
     }
@@ -102,10 +105,11 @@ componentDidMount() {
     // 2022.01.03 
     handleClickRemoveHistory(event, keyword) {
         // li에도 이벤트 onClick이벤트가 존재함. 이벤트 버블링으로 인해 클릭 이벤트에 문제가 생김
+        // stopPropagation : 현재 이벤트가 캡처링/버블링 단계에서 더 이상 전파되지 않도록 방지
         event.stopPropatgation();
-        
+
         store.removeHistory(keyword);
-        const historyList = store.getHidtoryList();
+        const historyList = store.getHistoryList();
         this.setState({ historyList })
     }
 
@@ -179,7 +183,7 @@ componentDidMount() {
             // 2022.01.02
             const historyList = (
                 <ul className="list">
-                    {this.state.historyList.map(({id, keyword, date})=> {
+                    {this.state.historyList.map(({id, keyword, date}) => {
                         return (
                             <li key={id} onClick={() => this.search(keyword)}>
                                 <span>{keyword}</span>
@@ -207,7 +211,7 @@ componentDidMount() {
                         })}
                     </ul>
                     {this.state.selectedTab === TabType.KEYWORD && keywordList}
-                    {this.state.selectedTab === TabType.HISTORY && historyList }
+                    {this.state.selectedTab === TabType.HISTORY && historyList}
                 </>
             )
 

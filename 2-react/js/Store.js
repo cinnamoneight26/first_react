@@ -57,8 +57,9 @@ class Store {
   // _sortHistory(history1, history2) {
   //   return history2.date > history1.date;
   // }
+
   _sortHistory(history1, history2) {
-    return history2.date - history1.data;
+    return history2.date - history1.date;
   }
 
   removeHistory(keyword) {

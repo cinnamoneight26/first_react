@@ -11,6 +11,10 @@ const TabLable = {
     [TabType.HISTORY] : '최근 검색어'
 };
 
+// react API가 제공하는 Component 클래스 사용. 상태 관리를 위해서 사용한다.
+// App은 전체 화면을 담당하는 역할
+// 리엑트는 돔접근을 최소화하기 위해 가상돔을 사용한다.
+// 
 class App extends React.Component {
 constructor() {
     super();
@@ -31,6 +35,15 @@ constructor() {
     };
 }
 
+/* 
+    리액트 컴포넌트는 생성부터 소멸까지 일련의 생명 주기를 가짐
+    
+    1. 컴포넌트 상태 등 초기화 작업을 완료하면 컴포넌트 객체가 생성 (constructor)
+    2. 그리고 리액트 엘리먼트를 이용해 가상돔을 그리고 이것을 실제 돔에 반영 (render)
+    3. 돔에 반영되는 것을 '마운트 된다'라고 표현하는데 마운트가 완료되면 (componentDidMount)
+    4. 컴포넌트가 사라지기 전에, 즉 마운트 직전에는 (compoentWillUnmount) 이벤트 핸들러를 제거하는 등 리소스 정리 작업을 한다.
+    5. 마지막으로 컴포넌트는 본인의 삶을 마감하는 순서를 따른다.
+*/
 componentDidMount() {
     const keywordList =  store.getKeywordList();
     const historyList =  store.getHistoryList();

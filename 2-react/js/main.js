@@ -121,7 +121,7 @@ componentDidMount() {
     handleClickRemoveHistory(event, keyword) {
         // li에도 이벤트 onClick이벤트가 존재함. 이벤트 버블링으로 인해 클릭 이벤트에 문제가 생김
         // stopPropagation : 현재 이벤트가 캡처링/버블링 단계에서 더 이상 전파되지 않도록 방지
-        event.stopPropatgation();
+        event.stopPropagation();
 
         store.removeHistory(keyword);
         const historyList = store.getHistoryList();

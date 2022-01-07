@@ -1,9 +1,27 @@
-import React from "react";
+import React from 'react';
 
-const Header = ({ title }) => (
-  <header>
-    <h2 className="container">{title}</h2>
-  </header>
-);
+/* 
+    함수 컴포넌트
+    Component 클래스를 상속하여 리액트 컴포넌트를 만드는 방법도 있지만
+    함수형으로 컴포넌트를 만드는 방법도 있다.
+    함수형 컴포넌트는 리액트 앨리먼트를 반환하는 함수여야만 리액트 컴포넌트가 될 자격을 가진다.
 
+    클래스 상속이나 render 메소드도 없어서 클래스 컴포넌트에 비해 상대적으로 코드가 짧다.
+    state가 없기 때문에 내부 상태가 필요하지 않는 컴포넌트라면 함수 컴포넌트를 사용할 수 있다.
+
+    header는 따로 상태 관리가 필요하지 않기 때문에 함수 컴포넌트로 만들어본다.
+    
+    컴포넌트를 만들 때 컴포넌트 이름처럼 맨 앞 글자를 대문자로 표시해주는 것이 관례 
+    jsx 문법을 사용하는 곳에서는 리액트 모듈을 import 해주어야 함
+
+*/
+const Header = () => {
+    return (
+        <header>
+            <h2 className="container">검색</h2>
+        </header>
+    )
+}
+
+// 모듈 등록
 export default Header;

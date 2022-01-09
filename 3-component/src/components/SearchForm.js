@@ -12,6 +12,11 @@ export default class SearchForm extends React.Component {
 
     handleChangeInput(event) {
         const searchKeyword = event.target.value;
+
+        if(searchKeyword.length <= 0 ) {
+            this.handleReset();
+        }
+        
         this.setState({ searchKeyword })
     }
     
@@ -20,9 +25,15 @@ export default class SearchForm extends React.Component {
         this.props.onSubmit(this.state.searchKeyword);
     }
 
+    handleReset() {
+        this.props.onReset();
+    }
+
     render() {
         return (
-            <form onSubmit={event => this.handleSubmit(event)}>
+            <form 
+                onSubmit={event => this.handleSubmit(event)} 
+                onReset={() => this.handleReset()}>
                 <input 
                     type="text" 
                     placeholder="검색어를 입력하세요." 

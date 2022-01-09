@@ -9,6 +9,10 @@ export default class App extends React.Component {
     console.log(searchKeyword)
   }
 
+  reset() {
+    console.log('reset')
+  }
+
   render() {
     return (
     <>
@@ -16,7 +20,8 @@ export default class App extends React.Component {
       {/* <Header title="프로필" /> 
       <Header title="상품" /> */}
       <div className="container">
-        <SearchForm onSubmit={(searchKeyword) => this.search(searchKeyword)} />
+        <SearchForm onSubmit={(searchKeyword) => this.search(searchKeyword)} 
+        onReset={() => this.reset()}/>
       </div>
 
     </>

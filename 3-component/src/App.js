@@ -5,6 +5,10 @@ import Header from "./components/Header.js";
 import SearchForm from "./components/SearchForm.js";
 
 export default class App extends React.Component {
+  search(searchKeyword) {
+    console.log(searchKeyword)
+  }
+
   render() {
     return (
     <>
@@ -12,7 +16,7 @@ export default class App extends React.Component {
       {/* <Header title="프로필" /> 
       <Header title="상품" /> */}
       <div className="container">
-        <SearchForm />
+        <SearchForm onSubmit={(searchKeyword) => this.search(searchKeyword)} />
       </div>
 
     </>

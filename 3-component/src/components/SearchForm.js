@@ -1,50 +1,43 @@
 import React from 'react';
 
-// 이 컴포넌트를 외부에서 모듈로 등록하여 쓸 수 있도록 expert default 기본 모듈로 설정
-export default class SearchForm extends React.Component {
-    constructor() {
-        super()
-
-        this.state = {
-            searchKeyword : ""
-        };
+/**
+ * 
+ *  기존 클래스 컴포넌트로 구현했던 searchForm을 statu 끌어올리기를 하면서
+ *  함수형 컴포넌트로 수정.
+ *  SearchForm에서 구현했던 state를 다른 컴포넌트에서도 사용해야하기 때문에
+ *  부모인 App 컴포넌트로 이동했다.
+ * 
+ */
+const SearchForm = ({ value, onChange, onSubmit, onReset })=> {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        onSubmit();
     }
 
-    handleChangeInput(event) {
-        const searchKeyword = event.target.value;
+    const handleReset = () => {
+        onReset();
+    }
 
-        if(searchKeyword.length <= 0 ) {
-            this.handleReset();
-        }
-        
-        this.setState({ searchKeyword })
+    const handleChangeInput = (event) =>  {
+        onChange(event.target.value);
     }
     
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.onSubmit(this.state.searchKeyword);
-    }
-
-    handleReset() {
-        this.props.onReset();
-    }
-
-    render() {
-        return (
-            <form 
-                onSubmit={event => this.handleSubmit(event)} 
-                onReset={() => this.handleReset()}>
+    return (
+        <form 
+                onSubmit={handleSubmit} 
+                onReset={handleReset}>
                 <input 
                     type="text" 
                     placeholder="검색어를 입력하세요." 
                     autoFocus 
-                    value={this.state.searchKeyword}
-                    onChange={event => this.handleChangeInput(event)}
+                    value={value}
+                    onChange={handleChangeInput}
                 />
-                {this.state.searchKeyword.length > 0 &&
+                {value.length > 0 &&
                     <button type="reset" className="btn-reset"></button> 
                 }
             </form>
-        )
-    }
-}
+    )
+};
+
+export default SearchForm;

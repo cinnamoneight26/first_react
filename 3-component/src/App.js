@@ -3,6 +3,8 @@ import React from "react";
 import Header from "./components/Header.js";
 // SearchForm 컴포넌트 추가
 import SearchForm from "./components/SearchForm.js";
+import SearchResult from "./components/SearchResult.js";
+import Store from "./Store.js";
 
 export default class App extends React.Component {
     constructor() {
@@ -17,7 +19,9 @@ export default class App extends React.Component {
          */
 
       this.state = {
-        searchKeyword: ""
+        searchKeyword: "",
+        searchResult:[],
+        submitted: false
       };
     }
 
@@ -29,14 +33,24 @@ export default class App extends React.Component {
   }
 
   search(searchKeyword) {
-    console.log(searchKeyword)
+    const searchResult =  Store.search(searchKeyword);
+    
+    this.setState({
+      searchResult,
+      submitted: true
+    });
   }
 
   reset() {
-    console.log('reset')
+    this.setState({
+      searchKeyword:"",
+      submitted : false,
+      searchResult: []
+    })
   }
 
   render() {
+    const { searchKeyword, submitted, searchResult } = this.state;
     return (
     <>
       <Header title="검색" /> 
@@ -44,10 +58,14 @@ export default class App extends React.Component {
       <Header title="상품" /> */}
       <div className="container">
         <SearchForm 
-          value={this.state.searchKeyword}
+          value={searchKeyword}
           onChange={(value) => this.handleChangeInput(value)}
-          onSubmit={(searchKeyword) => this.search(searchKeyword)} 
+          onSubmit={() => this.search(searchKeyword)} 
           onReset={() => this.reset()}/>
+        <div className="content">
+          {submitted && <SearchResult data={searchResult}/>}
+        </div>
+        
       </div>
 
     </>

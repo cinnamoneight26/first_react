@@ -6,7 +6,7 @@ import SearchForm from "./components/SearchForm.js";
 import SearchResult from "./components/SearchResult.js";
 import Store from "./Store.js";
 import Tabs, {TabType} from './components/Tabs.js';
-import KeywordList from './components/KeywordList.js'
+import KeywordList from './components/KeywordList.js';
 
 
 export default class App extends React.Component {
@@ -40,6 +40,7 @@ export default class App extends React.Component {
     const searchResult =  Store.search(searchKeyword);
     
     this.setState({
+      searchKeyword,
       searchResult,
       submitted: true
     });
